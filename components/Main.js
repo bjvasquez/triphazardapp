@@ -1,19 +1,25 @@
-import React, {Component, useState} from 'react'; 
+import React, {Component} from 'react'; 
 import {View, Text, StyleSheet, Button} from 'react-native'; 
 //import {Form} from 'react-native-elements'; 
-import {Login} from './Login';
+import Login from './Login';
 import {Home} from './Home';
+import {connect} from 'react-redux';
 
-export const Main = () => {
+const mapStateToProps = state => {
+    return {
+        loggedIn: state.loginUpdater.loggedIn,
+    };
+};
 
-        const {loggedIn, setLoggedIn} = useState(false);
-
+export const Main = (props) => {
     return (
         <View>
             <Text> 
                 Welcome to the Main page
             </Text>
-            {!loggedIn?<Login />:<Home />}
+            {!props.loggedIn?<Login />:<Home />}
         </View>
     )
 }
+
+export default connect(mapStateToProps)(Main);
