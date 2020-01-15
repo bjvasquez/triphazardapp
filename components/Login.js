@@ -35,8 +35,6 @@ export const Login = (props) => {
         let user = users.filter(user=>{
            return (user.userName === userInformation.userName && user.password === userInformation.password)
         });
-        console.log(user[0])
-        console.log(props.loginSuccess);
         user.length===1?(props.loginSuccess(user[0])):props.loginFailed("incorrect username or password");
     }
 

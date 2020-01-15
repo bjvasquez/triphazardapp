@@ -5,7 +5,7 @@ export const loginFailed = errMess => ({
     payload: errMess
 });
 
-export const loginSuccess = successMess => ({
+export const loginSuccess = user => ({
     type: ActionTypes.LOGIN_SUCCESS,
-    payload: successMess
+    payload: user
 });
