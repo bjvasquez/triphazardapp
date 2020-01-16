@@ -5,9 +5,10 @@ export const loginUpdater = (state = {loggedIn: false, user: {}, users: USERS}, 
     switch (action.type) {
         case ActionTypes.LOGIN_SUCCESS:
             return ({
+                ...state,
                 loggedIn: true,
                 user: action.payload,
-                users:USERS
+                
             });
 
 
