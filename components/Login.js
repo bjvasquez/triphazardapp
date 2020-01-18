@@ -1,6 +1,6 @@
 import React, {Component, useState} from 'react'; 
 import { Text, View, ScrollView, FlatList,
-    Modal, StyleSheet, Button, TextInput } from 'react-native';
+    Modal, StyleSheet, Button, Alert } from 'react-native';
 import { Card, Rating, Input } from 'react-native-elements';
 import {connect} from 'react-redux';
 import {loginFailed,loginSuccess} from '../redux/ActionCreators';
@@ -35,8 +35,13 @@ export const Login = (props) => {
         let user = users.filter(user=>{
            return (user.userName === userInformation.userName && user.password === userInformation.password)
         });
-        user.length===1?(props.loginSuccess(user[0])):props.loginFailed("incorrect username or password");
-    }
+        if(user.length===1){
+            props.loginSuccess(user[0])
+        } else {
+            Alert.alert('Login Failed','You entered an incorrect password',[{text:'OK'}],{cancelable:true});
+            props.loginFailed("incorrect username or password");   
+        }
+         }
 
     return (
         <View>
@@ -56,6 +61,7 @@ export const Login = (props) => {
                             leftIconContainerStyle={{paddingRight:10}}
                             onChangeText={(password) => setLocalState({...localState,password})}
                             value={localState.password}
+                            secureTextEntry={true}
                         />
          
             <Button
