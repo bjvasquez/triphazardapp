@@ -5,6 +5,7 @@ import Login from './Login';
 import Home from './Home';
 import {connect} from 'react-redux';
 
+
 const mapStateToProps = state => {
     return {
         loggedIn: state.loginUpdater.loggedIn,
@@ -12,14 +13,18 @@ const mapStateToProps = state => {
     };
 };
 
+
+
 export const Main = (props) => {
     return (
         <View>
             {!props.loggedIn?<Login />:<Home />}
-            
+           
         </View>
         
     )
 }
+
+
 
 export default connect(mapStateToProps)(Main);
