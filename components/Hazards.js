@@ -59,30 +59,6 @@ class Hazards extends Component {
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
         },
-        hazards:[
-            {
-                title:'Construction zone hazard',
-                src:'/assets/hazard1.jpg',
-                description: 'dangerous constructione zone full of nails and wood. Do not run through here',
-                date: '2019-09-26',
-                coordinates: {
-                    latitude: 33.085525,
-                    longitude: -96.688675,
-                  }
-        
-            },
-            {
-                title:'hazard 2',
-                src:'/assets/hazard1.jpg',
-                description: 'another constructione zone full of nails and wood. Do not run through here',
-                date: '2019-09-26',
-                coordinates: {
-                    latitude: 33.085520,
-                    longitude: -96.688679,
-                  }
-        
-            }
-        ],
     }
     }
 
@@ -115,7 +91,7 @@ class Hazards extends Component {
                 style={styles.mapStyle} 
                 region={this.state.region}
                 onRegionChange={()=>this.onRegionChange.bind(this)}>
-                    {this.props.hazards.map(marker => (
+                    {/* {this.props.hazards.map(marker => (
                     <Marker
                     coordinate={marker.coordinates}
                     title={marker.title}
@@ -136,7 +112,7 @@ class Hazards extends Component {
                                 
                             </View>    
                         </MapView.Callout>  
-                    </Marker> ))}
+                    </Marker> ))} */}
             </MapView>
       </View>
     )

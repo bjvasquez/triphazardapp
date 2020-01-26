@@ -10,6 +10,8 @@ import {createAppContainer} from 'react-navigation';
 const mapStateToProps = state => {
     return {
         user: state.loginUpdater.user,
+        numberOfHazards: state.hazards.numberOfHazards,
+        hazards: state.hazards.hazards
     };
 };
 
@@ -63,11 +65,11 @@ const MainNavigator =  createAppContainer(createDrawerNavigator(
 ));
 
  export const Home = (props) => {
-    let numberOfHazards = 5;
+    //let numberOfHazards = 5;
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Trip Hazard App</Text>            
-            <Text style={styles.text}>{numberOfHazards} hazard(s) have been reported.</Text>
+            <Text style={styles.text}>{props.numberOfHazards} hazard(s) have been reported.</Text>
             <Text style={styles.text}>Add new hazard by using the camera or picking from your camera roll.</Text>
             {/* <HazardImage /> */}
             <MainNavigator />

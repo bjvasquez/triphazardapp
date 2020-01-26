@@ -12,10 +12,12 @@ class HazardImage extends React.Component {
 
       this.state = {
           imageUrl: null,
-          region:{
-            latitude:0,
-            longitude:0
-          }
+          region: {
+            latitude: 30.26,
+            longitude: -97.1,
+            latitudeDelta: 0.0922,
+            longitudeDelta: 0.0421,
+        } 
       };
   }
 
@@ -25,7 +27,9 @@ class HazardImage extends React.Component {
         console.warn(position);
         var region = {
           latitude: position.coords.latitude,
-          longitude: position.coords.longitude
+          longitude: position.coords.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
         };
         this.setState({region});
       },
@@ -33,6 +37,10 @@ class HazardImage extends React.Component {
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     )};
 
+  
+  onRegionChange(region) {
+    this.setState({ region });
+  }
 
   render() {
 

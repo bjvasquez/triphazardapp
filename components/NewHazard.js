@@ -1,6 +1,6 @@
 import React, {Component, useState, useEffect} from 'react'; 
 import { Text, View, ScrollView, FlatList,
-    Modal, StyleSheet, Button, Alert } from 'react-native';
+    Modal, StyleSheet, Button, Alert, TextInput } from 'react-native';
 import { Card, Rating, Input } from 'react-native-elements';
 import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -8,7 +8,7 @@ import {newHazard} from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
-        hazards: state.hazardUpdater.hazards
+        hazards: state.hazards
     };
 };
 
@@ -49,36 +49,49 @@ export const NewHazard = (props) => {
     function handleSubmit(){
        newHazard(localState.hazard)
          }
-
+    
+    function showHazards(hazards){
+        Alert.alert(hazards);
+    }
     return (
         <View>
             <Text> 
-                Submit a New Hazard
+               Add a New Hazard
             </Text>
-            <Input
+            <TextInput
                             placeholder='name'
                             onChangeText={(title) => setLocalState({...localState,title})}
                             value={localState.title}
+                            inputStyle={{color:'black'}}
                         />
-            <Input
+            <TextInput
                             placeholder='description'
                             onChangeText={(description) => setLocalState({...localState,description})}
                             value={localState.description}
                         />
-             <Input
+             <TextInput
                             placeholder='date'
                             onChangeText={(date) => setLocalState({...localState,date})}
                             value={localState.date}
                         />
          
             <Button
-                            onPress={() => {
-                                handleSubmit();
-                                resetForm();
-                            }}
-                            color='#5637DD'
-                            title='Submit'
+                        onPress={() => {
+                            handleSubmit();
+                            resetForm();
+                        }}
+                        color='#5637DD'
+                        title='Submit'
+                    />
+           
+             <Button
+                    onPress={() => {
+                        showHazards(props.latitude.toString());
+                    }}
+                    color='#5637DD'
+                    title='Show Hazards'
                         />
+                
             
         </View>
     )
