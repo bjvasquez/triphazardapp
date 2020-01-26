@@ -4,7 +4,22 @@ import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import { NewHazard } from './NewHazard';
+import {connect} from 'react-redux';
+import {newHazard} from '../redux/ActionCreators';
 
+
+const mapStateToProps = (state,props) => {
+  return {
+      ...props,
+      user: state.loginUpdater.user,
+      numberOfHazards: state.hazards.numberOfHazards,
+      hazards: state.hazards.hazards
+  };
+};
+
+const mapDispatchToProps = {
+  newHazard: hazard => (newHazard(hazard))
+};
 
 class HazardImage extends React.Component {
   constructor(props) {
@@ -54,7 +69,9 @@ class HazardImage extends React.Component {
           title="Add new hazard from camera"
           onPress={this.getImageFromCamera}
         />
-        <NewHazard src={this.state.imageUrl} latitude={this.state.region.latitude} longitude={this.state.region.longitude} />
+        <NewHazard src={this.state.imageUrl} latitude={this.state.region.latitude} 
+        hazards={this.props.hazards} longitude={this.state.region.longitude}
+        newHazard={this.props.newHazard} />
 
         {this.state.imageUrl &&
           <Image source={{ uri: this.state.imageUrl }} style={{ width: 200, height: 200 }} />}
@@ -113,4 +130,4 @@ class HazardImage extends React.Component {
 
 }
 
-export default HazardImage;
+export default connect(mapStateToProps, mapDispatchToProps)(HazardImage);

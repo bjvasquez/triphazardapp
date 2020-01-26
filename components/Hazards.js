@@ -8,12 +8,10 @@ import MapView,{Marker} from 'react-native-maps';
 
 
 const mapStateToProps = state => {
-    return {
-        loggedIn: state.loginUpdater.loggedIn,
-        users: state.loginUpdater.users,
-        user: state.loginUpdater.user,
-        hazards: state.hazards
-    };
+  return {
+      numberOfHazards: state.hazards.numberOfHazards,
+      hazards: state.hazards.hazards
+  };
 };
 
 const mapDispatchToProps = {
@@ -91,7 +89,7 @@ class Hazards extends Component {
                 style={styles.mapStyle} 
                 region={this.state.region}
                 onRegionChange={()=>this.onRegionChange.bind(this)}>
-                    {/* {this.props.hazards.map(marker => (
+                    {this.props.hazards.map(marker => (
                     <Marker
                     coordinate={marker.coordinates}
                     title={marker.title}
@@ -112,7 +110,7 @@ class Hazards extends Component {
                                 
                             </View>    
                         </MapView.Callout>  
-                    </Marker> ))} */}
+                    </Marker> ))}
             </MapView>
       </View>
     )

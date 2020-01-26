@@ -6,9 +6,9 @@ import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {newHazard} from '../redux/ActionCreators';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state,props) => {
     return {
-        hazards: state.hazards
+        ...props,
     };
 };
 
@@ -46,9 +46,6 @@ export const NewHazard = (props) => {
         },});
     }
 
-    function handleSubmit(){
-       newHazard(localState.hazard)
-         }
     
     function showHazards(hazards){
         Alert.alert(hazards);
@@ -77,7 +74,7 @@ export const NewHazard = (props) => {
          
             <Button
                         onPress={() => {
-                            handleSubmit();
+                            props.newHazard(localState.hazard);
                             resetForm();
                         }}
                         color='#5637DD'
@@ -86,7 +83,7 @@ export const NewHazard = (props) => {
            
              <Button
                     onPress={() => {
-                        showHazards(props.latitude.toString());
+                        showHazards(props.hazards.length.toString());
                     }}
                     color='#5637DD'
                     title='Show Hazards'
