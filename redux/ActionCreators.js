@@ -9,3 +9,8 @@ export const loginSuccess = user => ({
     type: ActionTypes.LOGIN_SUCCESS,
     payload: user
 });
+
+export const newHazard = hazards => ({
+    type:ActionTypes.NEW_HAZARD,
+    payload:hazards
+});

@@ -1,35 +1,53 @@
-import React, {Component, useState} from 'react'; 
+import React, {Component, useState, useEffect} from 'react'; 
 import { Text, View, ScrollView, FlatList,
     Modal, StyleSheet, Button, Alert } from 'react-native';
 import { Card, Rating, Input } from 'react-native-elements';
 import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import {newHazard} from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
     return {
-        loggedIn: state.loginUpdater.loggedIn,
+        hazards: state.hazardUpdater.hazards
     };
 };
 
 const mapDispatchToProps = {
-    loginSuccess: userInfo => (loginSuccess(userInfo)),
-    loginFailed: errMessage => (loginFailed(errMessage))
+    newHazard: hazard => (newHazard(hazard))
 };
-
 
 export const NewHazard = (props) => {
 
     const [localState, setLocalState] = useState({
-        newHazard: []
+        hazard: {
+                title:'',
+                src: props.src,
+                description: '',
+                date: '',
+                coordinates: {
+                    latitude: props.latitude,
+                    longitude: props.longitude,
+                  }
+        
+            },
     });
 
     function resetForm(){
-        setLocalState({userName:'',password:''});
+        setLocalState({ hazard: {
+            title:'',
+            src:props.latitude,
+            description: '',
+            date: '',
+            coordinates: {
+                latitude: props.latitude,
+                longitude: props.longitude,
+              }
+    
+        },});
     }
 
-    function handleSubmit(users, userInformation){
-       
+    function handleSubmit(){
+       newHazard(localState.hazard)
          }
 
     return (
@@ -39,23 +57,23 @@ export const NewHazard = (props) => {
             </Text>
             <Input
                             placeholder='name'
-                            leftIcon={{ type: 'font-awesome', name: 'lock' }}
-                            leftIconContainerStyle={{paddingRight:10}}
-                            onChangeText={(userName) => setLocalState({...localState,userName})}
-                            value={localState.userName}
+                            onChangeText={(title) => setLocalState({...localState,title})}
+                            value={localState.title}
                         />
             <Input
                             placeholder='description'
-                            leftIcon={{ type: 'font-awesome', name: 'user-o' }}
-                            leftIconContainerStyle={{paddingRight:10}}
-                            onChangeText={(password) => setLocalState({...localState,password})}
-                            value={localState.password}
-                            secureTextEntry={true}
+                            onChangeText={(description) => setLocalState({...localState,description})}
+                            value={localState.description}
+                        />
+             <Input
+                            placeholder='date'
+                            onChangeText={(date) => setLocalState({...localState,date})}
+                            value={localState.date}
                         />
          
             <Button
                             onPress={() => {
-                                handleSubmit(props.users,localState);
+                                handleSubmit();
                                 resetForm();
                             }}
                             color='#5637DD'

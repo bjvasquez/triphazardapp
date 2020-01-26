@@ -3,15 +3,36 @@ import { Button, Image, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
+import { NewHazard } from './NewHazard';
+
 
 class HazardImage extends React.Component {
   constructor(props) {
       super(props);
 
       this.state = {
-          imageUrl: null
+          imageUrl: null,
+          region:{
+            latitude:0,
+            longitude:0
+          }
       };
   }
+
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        console.warn(position);
+        var region = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        };
+        this.setState({region});
+      },
+      (error) => alert(error.message),
+      {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+    )};
+
 
   render() {
 
@@ -25,6 +46,7 @@ class HazardImage extends React.Component {
           title="Add new hazard from camera"
           onPress={this.getImageFromCamera}
         />
+        <NewHazard src={this.state.imageUrl} latitude={this.state.region.latitude} longitude={this.state.region.longitude} />
 
         {this.state.imageUrl &&
           <Image source={{ uri: this.state.imageUrl }} style={{ width: 200, height: 200 }} />}

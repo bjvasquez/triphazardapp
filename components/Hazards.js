@@ -11,7 +11,8 @@ const mapStateToProps = state => {
     return {
         loggedIn: state.loginUpdater.loggedIn,
         users: state.loginUpdater.users,
-        user: state.loginUpdater.user
+        user: state.loginUpdater.user,
+        hazards: state.hazards
     };
 };
 
@@ -114,7 +115,7 @@ class Hazards extends Component {
                 style={styles.mapStyle} 
                 region={this.state.region}
                 onRegionChange={()=>this.onRegionChange.bind(this)}>
-                    {this.state.hazards.map(marker => (
+                    {this.props.hazards.map(marker => (
                     <Marker
                     coordinate={marker.coordinates}
                     title={marker.title}
