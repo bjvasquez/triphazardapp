@@ -1,7 +1,7 @@
 export const HAZARDS = [
     {
         title:'Construction zone hazard',
-        src:'../assets/hazard 1',
+        src:'../assets/hazard1.jpg',
         description: 'dangerous constructione zone full of nails and wood. Do not run through here',
         date: '2019-09-26',
         coordinates: {
@@ -12,7 +12,7 @@ export const HAZARDS = [
     },
     {
         title:'hazard 2',
-        src:'../assets/hazard 1',
+        src:'../assets/hazard1.jpg',
         description: 'another constructione zone full of nails and wood. Do not run through here',
         date: '2019-09-26',
         coordinates: {

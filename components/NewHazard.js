@@ -35,8 +35,8 @@ export const NewHazard = (props) => {
     function resetForm(){
         setLocalState({ hazard: {
             title:'',
-            src:props.latitude,
-            description: '',
+            src: props.src,
+            description: 'test',
             date: '',
             coordinates: {
                 latitude: props.latitude,
@@ -57,18 +57,18 @@ export const NewHazard = (props) => {
             </Text>
             <TextInput
                             placeholder='name'
-                            onChangeText={(title) => setLocalState({...localState,title})}
+                            onChangeText={(title) => setLocalState({...localState,title:title})}
                             value={localState.title}
                             inputStyle={{color:'black'}}
                         />
             <TextInput
                             placeholder='description'
-                            onChangeText={(description) => setLocalState({...localState,description})}
+                            onChangeText={(description) => setLocalState({...localState,description:description})}
                             value={localState.description}
                         />
              <TextInput
                             placeholder='date'
-                            onChangeText={(date) => setLocalState({...localState,date})}
+                            onChangeText={(date) => setLocalState({...localState,date:date})}
                             value={localState.date}
                         />
          
@@ -83,7 +83,7 @@ export const NewHazard = (props) => {
            
              <Button
                     onPress={() => {
-                        showHazards(props.hazards.length.toString());
+                        showHazards(props.hazards[props.hazards.length-1].description.toString());
                     }}
                     color='#5637DD'
                     title='Show Hazards'

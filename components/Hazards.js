@@ -24,8 +24,13 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#fff',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      justifyContent: 'flex-end',
       alignItems: 'center',
-      justifyContent: 'center',
     },
     mapStyle: {
       width: Dimensions.get('window').width,
@@ -103,9 +108,13 @@ class Hazards extends Component {
                                 <Text>
                                 <Image 
                                         style={styles.image}
-                                        source={require('../assets/hazard1.jpg')}
+                                        source={{uri:'../assets/hazard1.jpg'}}
                                         resizeMethod='auto'
                                         />
+                                {/* <Image source={{ uri: marker.src }}
+                                 style={{ width: 200, height: 200 }} 
+                                 />}
+       */}
                                 </Text>
                                 
                             </View>    
