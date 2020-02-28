@@ -5,7 +5,8 @@ import { Card, Rating, Input } from 'react-native-elements';
 import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MapView,{Marker} from 'react-native-maps';
-
+import { hazardUpdater } from '../redux/hazardUpdater';
+import {newHazard, updateHazards} from '../redux/ActionCreators';
 
 const mapStateToProps = state => {
   return {
@@ -16,7 +17,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     loginSuccess: userInfo => (loginSuccess(userInfo)),
-    loginFailed: errMessage => (loginFailed(errMessage))
+    loginFailed: errMessage => (loginFailed(errMessage)), 
+    updateHazards: hazard => (updateHazards(hazard)), 
+    newHazard: hazard => (newHazard(hazard))
 };
 
 
@@ -65,23 +68,45 @@ class Hazards extends Component {
     }
     }
 
-    componentDidMount() {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            console.warn(position);
-            var region = {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            };
-            this.setState({region});
-          },
-          (error) => alert(error.message),
-          {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
-        )};
+     
+      componentDidMount() {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              console.warn(position);
+              var region = {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,
+              };
+              this.setState({region});
+            },
+            (error) => alert(error.message),
+            {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
+          )
+            this.fetchHazards();
+          
+            this.interval = setInterval(this.fetchHazards,30000)
+    };
     
-      
+
+      fetchHazards = () => {
+        fetch('http://54.173.196.126:3000/hazards', {
+        method: 'GET',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }}).then((response) => response.json())
+            .then((responseJson) => {
+            this.props.updateHazards(responseJson)
+            return responseJson;
+            })
+            .catch((error) => {
+            console.error(error);
+            })
+          }
+
+
       onRegionChange(region) {
         this.setState({ region });
       }
@@ -96,7 +121,7 @@ class Hazards extends Component {
                 onRegionChange={()=>this.onRegionChange.bind(this)}>
                     {this.props.hazards.map(marker => (
                     <Marker
-                    coordinate={marker.coordinates}
+                    coordinate={{latitude:marker.latitude, longitude: marker.longitude}}
                     title={marker.title}
                     description={marker.description} >
                         <MapView.Callout tooltip={true} >

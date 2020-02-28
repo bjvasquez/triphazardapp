@@ -4,10 +4,10 @@ export const HAZARDS = [
         src:'../assets/hazard1.jpg',
         description: 'dangerous constructione zone full of nails and wood. Do not run through here',
         date: '2019-09-26',
-        coordinates: {
+      
             latitude: 33.085525,
             longitude: -96.688675,
-          }
+          
 
     },
     {
@@ -15,10 +15,10 @@ export const HAZARDS = [
         src:'../assets/hazard1.jpg',
         description: 'another constructione zone full of nails and wood. Do not run through here',
         date: '2019-09-26',
-        coordinates: {
+       
             latitude: 33.085520,
             longitude: -96.688679,
-          }
+        
 
     }
 ];

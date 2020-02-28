@@ -14,3 +14,8 @@ export const newHazard = hazards => ({
     type:ActionTypes.NEW_HAZARD,
     payload:hazards
 });
+
+export const updateHazards = hazards => ({
+    type:ActionTypes.UPDATE_HAZARDS,
+    payload:hazards
+});
