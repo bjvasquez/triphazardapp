@@ -79,7 +79,8 @@ export const Login = (props) => {
                                     }),
                                     }).then(res => {if(res.status >= 400){
                                         return Promise.reject("bad request or incorrect password");
-                                    }}).then((response) => response.json())
+                                    } else return res;
+                                }).then((response) => response.json())
                                         .then((responseJson) => {
                                             if(!responseJson.err){
                                                 alert(Object.keys(responseJson));
