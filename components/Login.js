@@ -27,7 +27,7 @@ export const Login = (props) => {
     });
 
     function resetForm(){
-        setLocalState({userName:'',password:''});
+        setLocalState({username:'',password:''});
     }
 
     function handleSubmit(users, userInformation){
@@ -71,6 +71,36 @@ export const Login = (props) => {
                             }}
                             color='#5637DD'
                             title='Submit'
+                        />
+                        
+             <Button
+                            onPress={() => {
+                                //handleSubmit(props.users,localState);
+                               
+                                fetch('http://54.173.196.126:3000/users/signup', {
+                                    method: 'POST',
+                                    headers: {
+                                        Accept: 'application/json',
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        username: localState.userName,
+                                        password: localState.password,
+                                    }),
+                                    }).then((response) => response.json())
+                                        .then((responseJson) => {
+                                            if(!responseJson.err){
+                                                alert(Object.keys(responseJson));
+                                        return  props.loginSuccess(localState)
+                                            } else return new Error ('user already exists');
+                                        })
+                                        .catch((error) => {
+                                        console.error(error);
+                                        });
+                                resetForm();
+                            }}
+                            color='#5637DD'
+                            title='Sign up'
                         />
             
         </View>
