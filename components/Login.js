@@ -30,18 +30,18 @@ export const Login = (props) => {
         setLocalState({username:'',password:''});
     }
 
-    function handleSubmit(users, userInformation){
-        console.log(users,userInformation)
-        let user = users.filter(user=>{
-           return (user.userName === userInformation.userName && user.password === userInformation.password)
-        });
-        if(user.length===1){
-            props.loginSuccess(user[0])
-        } else {
-            Alert.alert('Login Failed','You entered an incorrect password',[{text:'OK'}],{cancelable:true});
-            props.loginFailed("incorrect username or password");   
-        }
-         }
+    // function handleSubmit(users, userInformation){
+    //     console.log(users,userInformation)
+    //     let user = users.filter(user=>{
+    //        return (user.userName === userInformation.userName && user.password === userInformation.password)
+    //     });
+    //     if(user.length===1){
+    //         props.loginSuccess(user[0])
+    //     } else {
+    //         Alert.alert('Login Failed','You entered an incorrect password',[{text:'OK'}],{cancelable:true});
+    //         props.loginFailed("incorrect username or password");   
+    //     }
+    //      }
 
     return (
         <View>
@@ -66,7 +66,29 @@ export const Login = (props) => {
          
             <Button
                             onPress={() => {
-                                handleSubmit(props.users,localState);
+                                //handleSubmit(props.users,localState);
+                                fetch('http://54.173.196.126:3000/users/login', {
+                                    method: 'POST',
+                                    headers: {
+                                        Accept: 'application/json',
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({
+                                        username: localState.userName,
+                                        password: localState.password,
+                                    }),
+                                    }).then(res => {if(res.status >= 400){
+                                        return Promise.reject("bad request or incorrect password");
+                                    }}).then((response) => response.json())
+                                        .then((responseJson) => {
+                                            if(!responseJson.err){
+                                                alert(Object.keys(responseJson));
+                                        return  props.loginSuccess(localState)
+                                            } return Promise.reject("bad request or incorrect password");
+                                        })
+                                        .catch((error) => {
+                                        console.error(error);
+                                        });
                                 resetForm();
                             }}
                             color='#5637DD'
@@ -90,9 +112,9 @@ export const Login = (props) => {
                                     }).then((response) => response.json())
                                         .then((responseJson) => {
                                             if(!responseJson.err){
-                                                alert(Object.keys(responseJson));
-                                        return  props.loginSuccess(localState)
-                                            } else return new Error ('user already exists');
+                                                alert("sign up successful!");
+                                       // return  props.loginSuccess(localState)
+                                            } else alert('user already exists');
                                         })
                                         .catch((error) => {
                                         console.error(error);
