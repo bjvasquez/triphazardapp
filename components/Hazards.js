@@ -98,7 +98,10 @@ class Hazards extends Component {
             'Content-Type': 'application/json',
         }}).then((response) => response.json())
             .then((responseJson) => {
-            this.props.updateHazards(responseJson)
+              if(this.props.numberOfHazards !== responseJson.length){
+                this.props.updateHazards(responseJson)
+              }
+            
             return responseJson;
             })
             .catch((error) => {
