@@ -30,18 +30,7 @@ export const Login = (props) => {
         setLocalState({username:'',password:''});
     }
 
-    // function handleSubmit(users, userInformation){
-    //     console.log(users,userInformation)
-    //     let user = users.filter(user=>{
-    //        return (user.userName === userInformation.userName && user.password === userInformation.password)
-    //     });
-    //     if(user.length===1){
-    //         props.loginSuccess(user[0])
-    //     } else {
-    //         Alert.alert('Login Failed','You entered an incorrect password',[{text:'OK'}],{cancelable:true});
-    //         props.loginFailed("incorrect username or password");   
-    //     }
-    //      }
+    
 
     return (
         <View>

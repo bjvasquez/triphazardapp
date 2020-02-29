@@ -19,37 +19,16 @@ const mapDispatchToProps = {
 export const NewHazard = (props) => {
 
     const [localState, setLocalState] = useState({
-        hazard: {
                 title:'',
-                src: props.src,
+                image: props.src,
                 description: '',
-                date: '',
-                coordinates: {
-                    latitude: props.latitude,
-                    longitude: props.longitude,
-                  }
-        
-            },
-    });
-
-    function resetForm(){
-        setLocalState({ hazard: {
-            title:'',
-            src: props.src,
-            description: 'test',
-            date: '',
-            coordinates: {
                 latitude: props.latitude,
                 longitude: props.longitude,
-              }
-    
-        },});
-    }
+            
+    });
 
-    
-    function showHazards(hazards){
-        Alert.alert(hazards);
-    }
+ 
+
     return (
         <View>
             <Text> 
@@ -66,28 +45,46 @@ export const NewHazard = (props) => {
                             onChangeText={(description) => setLocalState({...localState,description:description})}
                             value={localState.description}
                         />
-             <TextInput
-                            placeholder='date'
-                            onChangeText={(date) => setLocalState({...localState,date:date})}
-                            value={localState.date}
-                        />
+            
+            
          
             <Button
                         onPress={() => {
-                            props.newHazard(localState.hazard);
-                            resetForm();
+                          // alert((Object.keys(localState)))
+                                    fetch('http://54.173.196.126:3000/hazards', {
+                                        method: 'POST', // or 'PUT'
+                                        headers: {
+                                          'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                            title:localState.title,
+                                            image: localState.image,
+                                            description: localState.description,
+                                            latitude: localState.latitude,
+                                            longitude: localState.longitude,
+                                        }),
+                                      }).then(res => {
+                                        if(res.status >= 300){
+                                        return Promise.reject("bad request or incorrect password, res status code = " 
+                                        + res.status);
+                                         } else return res;
+                                        })
+                                        .then((response) => {
+                                            alert('successfully added!')
+                                            response.json()}
+                                            )                                    
+                                        .catch((error) => {
+                                        console.error(error);
+                                        });
+                                  
+                            props.newHazard(localState);
+                       
                         }}
                         color='#5637DD'
                         title='Submit'
                     />
            
-             <Button
-                    onPress={() => {
-                        showHazards(props.hazards[props.hazards.length-1].description.toString());
-                    }}
-                    color='#5637DD'
-                    title='Show Hazards'
-                        />
+           
                 
             
         </View>

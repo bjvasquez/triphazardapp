@@ -10,7 +10,7 @@ import {HAZARDS} from '../shared/hazards';
 export const hazardUpdater = (state = {hazards:HAZARDS, numberOfHazards: HAZARDS.length}, action) => {
     switch (action.type) {
         case ActionTypes.NEW_HAZARD:
-            alert('new hazard called in hazardUpdater, number of hazards = ' + action.payload.length)
+            alert('new hazard called in hazardUpdater')
             return ({
                 ...state,hazards: state.hazards.concat(action.payload)
             });

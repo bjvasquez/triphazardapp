@@ -13,7 +13,8 @@ export const loginUpdater = (state = {loggedIn: false, user: {}, users: USERS}, 
 
 
         case ActionTypes.LOGIN_FAILED:
-            return {...state}
+            return {...state, 
+            loggedIn: false}
 
         default:
           return state;

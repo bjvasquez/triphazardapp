@@ -6,6 +6,8 @@ import HazardImage from './HazardImageComponent';
 import {createDrawerNavigator, DrawerItems } from 'react-navigation-drawer';
 import {createStackNavigator} from 'react-navigation-stack';
 import {createAppContainer} from 'react-navigation';
+import {Logout} from './Logout';
+
 
 const mapStateToProps = state => {
     return {
@@ -56,7 +58,11 @@ const MainNavigator =  createAppContainer(createDrawerNavigator(
       },
       NewHazards: {
           screen: NewHazardsNavigator
-      }},
+      }, 
+      Logout: {
+          screen: Logout
+      }
+    },
   {
       initialRouteName: 'Map',
       drawerBackgroundColor: '#CEC8FF',
@@ -71,9 +77,7 @@ const MainNavigator =  createAppContainer(createDrawerNavigator(
             <Text style={styles.title}>Trip Hazard App</Text>            
             <Text style={styles.text}>{props.numberOfHazards} hazard(s) have been reported.</Text>
             <Text style={styles.text}>Add new hazard by using the camera or picking from your camera roll.</Text>
-            {/* <HazardImage /> */}
             <MainNavigator />
-            {/* <Hazards /> */}
         </View>
     )
 }

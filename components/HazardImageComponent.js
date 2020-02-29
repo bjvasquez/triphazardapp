@@ -51,22 +51,7 @@ class HazardImage extends React.Component {
       (error) => alert(error.message),
       {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000}
     );
-      // fetch('http://54.173.196.126:3000/hazards', {
-      //        method: 'GET',
-      //        headers: {
-      //            Accept: 'application/json',
-      //            'Content-Type': 'application/json',
-      //        }}).then((response) => response.json())
-      //            .then((responseJson) => {
-      //                if(!responseJson.err){
-      //                  alert('calling newHazard')
-      //                 return newHazard(responseJson.body);
-                         
-      //                } return Promise.reject("bad request or incorrect password");
-      //            })
-      //            .catch((error) => {
-      //            console.error(error);
-      //            })
+     
   };
 
   
