@@ -59,7 +59,6 @@ export const Login = (props) => {
                                 fetch('http://54.173.196.126:3000/users/login', {
                                     method: 'POST',
                                     headers: {
-                                        Accept: 'application/json',
                                         'Content-Type': 'application/json',
                                     },
                                     body: JSON.stringify({

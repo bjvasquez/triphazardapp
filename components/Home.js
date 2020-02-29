@@ -58,10 +58,8 @@ const MainNavigator =  createAppContainer(createDrawerNavigator(
       },
       NewHazards: {
           screen: NewHazardsNavigator
-      }, 
-      Logout: {
-          screen: Logout
       }
+     
     },
   {
       initialRouteName: 'Map',

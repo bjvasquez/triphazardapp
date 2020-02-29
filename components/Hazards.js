@@ -132,6 +132,7 @@ class Hazards extends Component {
                                    <Text>
                                        {marker.title}
                                        {marker.description}
+                                       {marker.id}
                                    </Text>
                                 <Text>
                                 <Image 

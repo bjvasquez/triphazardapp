@@ -50,14 +50,14 @@ export const NewHazard = (props) => {
          
             <Button
                         onPress={() => {
-                          // alert((Object.keys(localState)))
+                           alert(localState.title);
                                     fetch('http://54.173.196.126:3000/hazards', {
                                         method: 'POST', // or 'PUT'
                                         headers: {
                                           'Content-Type': 'application/json',
                                         },
                                         body: JSON.stringify({
-                                            title:localState.title,
+                                            name:localState.title,
                                             image: localState.image,
                                             description: localState.description,
                                             latitude: localState.latitude,
@@ -77,7 +77,7 @@ export const NewHazard = (props) => {
                                         console.error(error);
                                         });
                                   
-                            props.newHazard(localState);
+                           props.newHazard(localState);
                        
                         }}
                         color='#5637DD'
